@@ -17,6 +17,7 @@ export const setupStore = (preloadedState?: Partial<RootState>) => {
       reducer: rootReducer,
       preloadedState,
     },
+    // @ts-ignore
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 };
