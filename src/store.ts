@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import globalReducer from "./redux/GlobalSlice";
 import personalInformationReducer from "./redux/PersonalInformationSlice";
+import legalInformationReducer from "./redux/LegalInformationSlice";
+import educationWork from "./redux/EducationWorkSlice";
 
 const rootReducer = combineReducers({
   global: globalReducer,
   personalInformation: personalInformationReducer,
+  legalInformation: legalInformationReducer,
+  educationWork: educationWork,
 });
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {

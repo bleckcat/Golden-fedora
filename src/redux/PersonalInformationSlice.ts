@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PersonalInformationForm } from "../types/PersonalInformationForm";
+import PersonalInformationType from "../@types/PersonalInformation";
 
-const initialState: PersonalInformationForm = {
+const initialState: PersonalInformationType = {
   picture: null,
   fullName: "",
   dateOfBirth: "",
@@ -11,6 +11,8 @@ const initialState: PersonalInformationForm = {
   hasHealthProblems: "no",
   healthProblems: [],
   hasTattooOrPiercing: "no",
+  manequimSize: "",
+  newHealthProblem: "",
 };
 
 const personalInformationSlice = createSlice({
@@ -19,6 +21,9 @@ const personalInformationSlice = createSlice({
   reducers: {
     setPicture(state, action: PayloadAction<string | null>) {
       state.picture = action.payload;
+    },
+    setNewHealthProblem(state, action: PayloadAction<string>) {
+      state.newHealthProblem = action.payload;
     },
     setFullName(state, action: PayloadAction<string>) {
       state.fullName = action.payload;
@@ -47,6 +52,9 @@ const personalInformationSlice = createSlice({
     setHasTattooOrPiercing(state, action: PayloadAction<string>) {
       state.hasTattooOrPiercing = action.payload;
     },
+    setManequimSize(state, action: PayloadAction<string>) {
+      state.manequimSize = action.payload;
+    },
   },
 });
 
@@ -61,6 +69,8 @@ export const {
   addHealthProblem,
   removeHealthProblem,
   setHasTattooOrPiercing,
+  setManequimSize,
+  setNewHealthProblem,
 } = personalInformationSlice.actions;
 
 export default personalInformationSlice.reducer;

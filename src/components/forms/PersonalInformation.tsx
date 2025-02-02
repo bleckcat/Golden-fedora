@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import TextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
@@ -15,10 +14,8 @@ import {
   ListItem,
   ListItemText,
   IconButton,
-  InputAdornment,
-  Card,
 } from "@mui/material";
-import { Add, CloudUpload, Delete } from "@mui/icons-material";
+import { CloudUpload, Delete } from "@mui/icons-material";
 import VisuallyHiddenInput from "../../styled/VisuallyHiddenInput";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import {
@@ -32,6 +29,8 @@ import {
   addHealthProblem,
   removeHealthProblem,
   setHasTattooOrPiercing,
+  setManequimSize,
+  setNewHealthProblem,
 } from "../../redux/PersonalInformationSlice";
 
 const PersonalInformation = () => {
@@ -41,9 +40,10 @@ const PersonalInformation = () => {
     (state) => state.personalInformation
   );
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files[0]) {
+      const file = files[0];
       const imgUrl = URL.createObjectURL(file);
       dispatch(setPicture(imgUrl));
     }
@@ -65,7 +65,7 @@ const PersonalInformation = () => {
       <Grid2 size={12}>
         <Box width={30 * 4} height={40 * 4} margin="auto" bgcolor={"Highlight"}>
           <img
-            src={personalInformation.picture}
+            src={personalInformation.picture ?? ""}
             alt="3x4 picture uploaded by the user"
             width={30 * 4}
             height={40 * 4}
@@ -118,13 +118,14 @@ const PersonalInformation = () => {
           fullWidth
           value={personalInformation.sex}
           onChange={(e) => dispatch(setSex(e.target.value))}
+          sx={{ my: 2 }}
         >
           <MenuItem value="male">Male</MenuItem>
           <MenuItem value="female">Female</MenuItem>
           <MenuItem value="other">Other</MenuItem>
         </TextField>
       </Grid2>
-      <Grid2 size={6}>
+      <Grid2 size={4}>
         <TextField
           fullWidth
           margin="normal"
@@ -135,7 +136,7 @@ const PersonalInformation = () => {
           onChange={(e) => dispatch(setHeight(Number(e.target.value)))}
         />
       </Grid2>
-      <Grid2 size={6}>
+      <Grid2 size={4}>
         <TextField
           fullWidth
           margin="normal"
@@ -145,6 +146,22 @@ const PersonalInformation = () => {
           value={personalInformation.weight}
           onChange={(e) => dispatch(setWeight(Number(e.target.value)))}
         />
+      </Grid2>
+      <Grid2 size={4}>
+        <TextField
+          select
+          label={t("manequimSize")}
+          fullWidth
+          value={personalInformation.manequimSize}
+          onChange={(e) => dispatch(setManequimSize(e.target.value))}
+          sx={{ my: 2 }}
+        >
+          <MenuItem value="P">P</MenuItem>
+          <MenuItem value="M">M</MenuItem>
+          <MenuItem value="G">G</MenuItem>
+          <MenuItem value="GG">GG</MenuItem>
+          <MenuItem value="XL">XL</MenuItem>
+        </TextField>
       </Grid2>
 
       <Grid2 size={6}>
@@ -179,7 +196,7 @@ const PersonalInformation = () => {
             label={t("addHealthProblem")}
             variant="outlined"
             value={personalInformation.newHealthProblem}
-            onChange={(e) => dispatch(setNewHealthProblem(e.target.value))}
+            onChange={(e) => dispatch(setHasHealthProblems(e.target.value))}
           />
           <Button variant="contained" onClick={handleAddHealthProblem}>
             {t("addHealthProblem")}
