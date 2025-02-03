@@ -1,22 +1,22 @@
-import { useTranslation } from "react-i18next";
-import { TextField, MenuItem, Grid2 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import { useTranslation } from "react-i18next"
+import { TextField, MenuItem, Grid2 } from "@mui/material"
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux"
 import {
   setMaritalStatus,
   setSpouseName,
   setSpouseBirthDate,
   setChildrenCount,
-} from "../../redux/LegalInformationSlice";
+} from "../../redux/LegalInformationSlice"
 
 const LegalInformationForm = () => {
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
+  const { t } = useTranslation()
+  const dispatch = useAppDispatch()
   const { maritalStatus, spouseName, spouseBirthDate, childrenCount } =
-    useAppSelector((state) => state.legalInformation);
+    useAppSelector((state) => state.legalInformation)
 
   return (
     <Grid2 container spacing={2}>
-      <Grid2 size={12}>
+      <Grid2 size={6}>
         <TextField
           select
           fullWidth
@@ -31,9 +31,18 @@ const LegalInformationForm = () => {
           <MenuItem value="widowed">{t("widowed")}</MenuItem>
         </TextField>
       </Grid2>
+      <Grid2 size={6}>
+        <TextField
+          fullWidth
+          label={t("childrenCount")}
+          name="childrenCount"
+          value={childrenCount}
+          onChange={(e) => dispatch(setChildrenCount(e.target.value))}
+        />
+      </Grid2>
       {maritalStatus === "married" && (
         <>
-          <Grid2 size={12}>
+          <Grid2 size={6}>
             <TextField
               fullWidth
               label={t("spouseName")}
@@ -42,7 +51,7 @@ const LegalInformationForm = () => {
               onChange={(e) => dispatch(setSpouseName(e.target.value))}
             />
           </Grid2>
-          <Grid2 size={12}>
+          <Grid2 size={6}>
             <TextField
               fullWidth
               label={t("spouseBirthDate")}
@@ -57,17 +66,8 @@ const LegalInformationForm = () => {
           </Grid2>
         </>
       )}
-      <Grid2 size={12}>
-        <TextField
-          fullWidth
-          label={t("childrenCount")}
-          name="childrenCount"
-          value={childrenCount}
-          onChange={(e) => dispatch(setChildrenCount(e.target.value))}
-        />
-      </Grid2>
     </Grid2>
-  );
-};
+  )
+}
 
-export default LegalInformationForm;
+export default LegalInformationForm

@@ -1,18 +1,21 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import React from "react"
+import { useTranslation } from "react-i18next"
+import Radio from "@mui/material/Radio"
+import RadioGroup from "@mui/material/RadioGroup"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import FormControl from "@mui/material/FormControl"
+import FormLabel from "@mui/material/FormLabel"
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux"
+import { setJobType } from "../../redux/JobTypeSlice"
 
 const JobTypeForm = () => {
-  const { t } = useTranslation();
-  const [value, setValue] = React.useState("arubaito");
+  const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+  const jobType = useAppSelector((state) => state.jobType.jobType)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
+    dispatch(setJobType((event.target as HTMLInputElement).value))
+  }
 
   return (
     <FormControl component="fieldset">
@@ -20,7 +23,7 @@ const JobTypeForm = () => {
       <RadioGroup
         aria-label="jobType"
         name="jobType"
-        value={value}
+        value={jobType}
         onChange={handleChange}
       >
         <FormControlLabel
@@ -35,7 +38,7 @@ const JobTypeForm = () => {
         />
       </RadioGroup>
     </FormControl>
-  );
-};
+  )
+}
 
-export default JobTypeForm;
+export default JobTypeForm

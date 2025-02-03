@@ -210,7 +210,7 @@ const PersonalInformation = () => {
             label={t("addHealthProblem")}
             variant="outlined"
             value={personalInformation.newHealthProblem}
-            onChange={(e) => dispatch(setHasHealthProblems(e.target.value))}
+            onChange={(e) => dispatch(setNewHealthProblem(e.target.value))}
           />
           <Button variant="contained" onClick={handleAddHealthProblem}>
             {t("addHealthProblem")}
