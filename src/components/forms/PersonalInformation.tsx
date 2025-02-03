@@ -1,13 +1,11 @@
 import { useTranslation } from "react-i18next"
 import Button from "@mui/material/Button"
-import { Box, Grid2, Card, Alert } from "@mui/material"
+import { Box, Grid2, Card } from "@mui/material"
 import { CloudUpload } from "@mui/icons-material"
 import VisuallyHiddenInput from "../../styled/VisuallyHiddenInput"
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux"
 import { setPicture } from "../../redux/PersonalInformationSlice"
 import PersonalFields from "./form-fragments/PersonalFields"
-import { useEffect, useState } from "react"
-import { enableStepperNextButton } from "../../redux/GlobalSlice"
 
 const PersonalInformation = () => {
   const { t } = useTranslation()
@@ -16,60 +14,18 @@ const PersonalInformation = () => {
     (state) => state.personalInformation
   )
 
-  const [errors, setErrors] = useState({
-    picture: false,
-    fullName: false,
-    dateOfBirth: false,
-    sex: false,
-    height: false,
-    weight: false,
-    manequimSize: false,
-  })
-
-  const [touched, setTouched] = useState({
-    picture: false,
-    fullName: false,
-    dateOfBirth: false,
-    sex: false,
-    height: false,
-    weight: false,
-    manequimSize: false,
-  })
-
-  useEffect(() => {
-    const newErrors = {
-      picture: !personalInformation.picture && touched.picture,
-      fullName: !personalInformation.fullName && touched.fullName,
-      dateOfBirth: !personalInformation.dateOfBirth && touched.dateOfBirth,
-      sex: !personalInformation.sex && touched.sex,
-      height: !personalInformation.height && touched.height,
-      weight: !personalInformation.weight && touched.weight,
-      manequimSize: !personalInformation.manequimSize && touched.manequimSize,
-    }
-    setErrors(newErrors)
-    const isValid = !Object.values(newErrors).some((error) => error)
-    dispatch(enableStepperNextButton(isValid))
-  }, [personalInformation, touched, dispatch])
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files[0]) {
       const file = files[0]
       const imgUrl = URL.createObjectURL(file)
       dispatch(setPicture(imgUrl))
-      setErrors((prevErrors) => ({ ...prevErrors, picture: false }))
-      setTouched((prevTouched) => ({ ...prevTouched, picture: true }))
     }
   }
 
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={12}>
-        {errors.picture && (
-          <Alert severity="error" sx={{ my: 2 }}>
-            {t("pleaseUploadPhoto")}
-          </Alert>
-        )}
         <Card sx={{ width: 30 * 4, height: 40 * 4, margin: "auto" }}>
           {personalInformation.picture ? (
             <img

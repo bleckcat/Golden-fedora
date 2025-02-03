@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import PersonalInformationType from "../@types/PersonalInformation"
 
-const initialState: PersonalInformationType = {
+const initialState: PersonalInformationType & {
+  errors: { [key: string]: boolean }
+} = {
   picture: null,
   fullName: "",
   dateOfBirth: "",
@@ -13,6 +15,7 @@ const initialState: PersonalInformationType = {
   hasTattooOrPiercing: false,
   manequimSize: "",
   newHealthProblem: "",
+  errors: {},
 }
 
 const personalInformationSlice = createSlice({
@@ -35,6 +38,9 @@ const personalInformationSlice = createSlice({
     removeHealthProblem(state, action: PayloadAction<number>) {
       state.healthProblems.splice(action.payload, 1)
     },
+    setErrors(state, action: PayloadAction<{ [key: string]: boolean }>) {
+      state.errors = action.payload
+    },
   },
 })
 
@@ -43,6 +49,7 @@ export const {
   setPicture,
   addHealthProblem,
   removeHealthProblem,
+  setErrors,
 } = personalInformationSlice.actions
 
 export default personalInformationSlice.reducer
