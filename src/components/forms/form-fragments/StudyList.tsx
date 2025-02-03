@@ -62,6 +62,7 @@ const StudyList = () => {
           label={t("startDate")}
           type="date"
           value={study.startDate}
+          slotProps={{ inputLabel: { shrink: true } }}
           onChange={(e) => setStudy({ ...study, startDate: e.target.value })}
           error={errors.startDate}
           helperText={errors.startDate ? t("requiredField") : ""}
@@ -73,6 +74,7 @@ const StudyList = () => {
           label={t("endDate")}
           type="date"
           value={study.endDate}
+          slotProps={{ inputLabel: { shrink: true } }}
           onChange={(e) => setStudy({ ...study, endDate: e.target.value })}
           error={errors.endDate}
           helperText={errors.endDate ? t("requiredField") : ""}

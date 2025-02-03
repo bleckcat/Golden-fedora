@@ -14,22 +14,15 @@ import {
   Box,
   Grid2,
 } from "@mui/material"
-import { Delete } from "@mui/icons-material"
+import { Add, Delete } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux"
 import {
   addHealthProblem,
+  handleChangePersonalInfo,
   removeHealthProblem,
-  setDateOfBirth,
-  setFullName,
-  setHasHealthProblems,
-  setHasTattooOrPiercing,
-  setHeight,
-  setManequimSize,
-  setNewHealthProblem,
-  setSex,
-  setWeight,
 } from "../../../redux/PersonalInformationSlice"
+import { ChangeEvent } from "react"
 
 const PersonalFields = () => {
   const { t } = useTranslation()
@@ -42,7 +35,9 @@ const PersonalFields = () => {
   const handleAddHealthProblem = () => {
     if (personalInformation.newHealthProblem.trim() !== "") {
       dispatch(addHealthProblem(personalInformation.newHealthProblem))
-      dispatch(setNewHealthProblem(""))
+      dispatch(
+        handleChangePersonalInfo({ name: "newHealthProblem", value: "" })
+      )
     }
   }
 
@@ -50,27 +45,18 @@ const PersonalFields = () => {
     dispatch(removeHealthProblem(index))
   }
 
-  const handleChange = (field: string, value: string | number) => {
-    switch (field) {
-      case "fullName":
-        dispatch(setFullName(value as string))
-        break
-      case "dateOfBirth":
-        dispatch(setDateOfBirth(value as string))
-        break
-      case "sex":
-        dispatch(setSex(value as string))
-        break
-      case "height":
-        dispatch(setHeight(value as number))
-        break
-      case "weight":
-        dispatch(setWeight(value as number))
-        break
-      case "manequimSize":
-        dispatch(setManequimSize(value as string))
-        break
-    }
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    console.log(name, value)
+
+    dispatch(handleChangePersonalInfo({ name, value }))
+  }
+
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    dispatch(handleChangePersonalInfo({ name, value: value === "true" }))
   }
 
   return (
@@ -78,33 +64,33 @@ const PersonalFields = () => {
       <Grid2 size={12}>
         <TextField
           fullWidth
-          margin="normal"
           label={t("fullName")}
+          name="fullName"
           variant="outlined"
           value={personalInformation.fullName}
-          onChange={(e) => handleChange("fullName", e.target.value)}
+          onChange={handleChange}
         />
       </Grid2>
       <Grid2 size={6}>
         <TextField
           fullWidth
-          margin="normal"
+          name="dateOfBirth"
           label={t("dateOfBirth")}
           type="date"
-          InputLabelProps={{ shrink: true }}
+          slotProps={{ inputLabel: { shrink: true } }}
           variant="outlined"
           value={personalInformation.dateOfBirth}
-          onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+          onChange={handleChange}
         />
       </Grid2>
       <Grid2 size={6}>
         <TextField
           select
+          name="sex"
           label={t("sex")}
           fullWidth
           value={personalInformation.sex}
-          onChange={(e) => handleChange("sex", e.target.value)}
-          sx={{ my: 2 }}
+          onChange={handleChange}
         >
           <MenuItem value="male">{t("male")}</MenuItem>
           <MenuItem value="female">{t("female")}</MenuItem>
@@ -114,33 +100,33 @@ const PersonalFields = () => {
       <Grid2 size={4}>
         <TextField
           fullWidth
-          margin="normal"
+          name="height"
           label={t("height")}
           variant="outlined"
           type="number"
           value={personalInformation.height}
-          onChange={(e) => handleChange("height", Number(e.target.value))}
+          onChange={handleChange}
         />
       </Grid2>
       <Grid2 size={4}>
         <TextField
           fullWidth
-          margin="normal"
+          name="weight"
           label={t("weight")}
           variant="outlined"
           type="number"
           value={personalInformation.weight}
-          onChange={(e) => handleChange("weight", Number(e.target.value))}
+          onChange={handleChange}
         />
       </Grid2>
       <Grid2 size={4}>
         <TextField
           select
+          name="manequimSize"
           label={t("manequimSize")}
           fullWidth
           value={personalInformation.manequimSize}
-          onChange={(e) => handleChange("manequimSize", e.target.value)}
-          sx={{ my: 2 }}
+          onChange={handleChange}
         >
           <MenuItem value="P">P</MenuItem>
           <MenuItem value="M">M</MenuItem>
@@ -151,22 +137,22 @@ const PersonalFields = () => {
       </Grid2>
 
       <Grid2 size={6}>
-        <FormControl component="fieldset" margin="normal">
-          <FormLabel component="legend">{t("haveHealthProblems")}</FormLabel>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">{t("hasHealthProblems")}</FormLabel>
           <RadioGroup
-            aria-label="haveHealthProblems"
-            name="haveHealthProblems"
+            aria-label="hasHealthProblems"
+            name="hasHealthProblems"
             value={personalInformation.hasHealthProblems}
-            onChange={(e) => dispatch(setHasHealthProblems(e.target.value))}
+            onChange={handleRadioChange}
           >
             <Box>
               <FormControlLabel
-                value="yes"
+                value={true}
                 control={<Radio />}
                 label={t("yes")}
               />
               <FormControlLabel
-                value="no"
+                value={false}
                 control={<Radio />}
                 label={t("no")}
               />
@@ -174,17 +160,45 @@ const PersonalFields = () => {
           </RadioGroup>
         </FormControl>
       </Grid2>
-      {personalInformation.hasHealthProblems === "yes" && (
+      <Grid2 size={6}>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">{t("hasTattooOrPiercing")}</FormLabel>
+          <RadioGroup
+            aria-label="hasTattooOrPiercing"
+            name="hasTattooOrPiercing"
+            value={personalInformation.hasTattooOrPiercing}
+            onChange={handleRadioChange}
+          >
+            <Box>
+              <FormControlLabel
+                value={true}
+                control={<Radio />}
+                label={t("yes")}
+              />
+              <FormControlLabel
+                value={false}
+                control={<Radio />}
+                label={t("no")}
+              />
+            </Box>
+          </RadioGroup>
+        </FormControl>
+      </Grid2>
+      {personalInformation.hasHealthProblems && (
         <Grid2 size={12}>
           <TextField
             fullWidth
-            margin="normal"
             label={t("addHealthProblem")}
             variant="outlined"
+            name="newHealthProblem"
             value={personalInformation.newHealthProblem}
-            onChange={(e) => dispatch(setNewHealthProblem(e.target.value))}
+            onChange={handleChange}
           />
-          <Button variant="contained" onClick={handleAddHealthProblem}>
+          <Button
+            startIcon={<Add />}
+            onClick={handleAddHealthProblem}
+            sx={{ mt: 2 }}
+          >
             {t("addHealthProblem")}
           </Button>
           <List>
@@ -207,24 +221,6 @@ const PersonalFields = () => {
           </List>
         </Grid2>
       )}
-      <FormControl component="fieldset" margin="normal">
-        <FormLabel component="legend">{t("haveTattooOrPiercing")}</FormLabel>
-        <RadioGroup
-          aria-label="haveTattooOrPiercing"
-          name="haveTattooOrPiercing"
-          value={personalInformation.hasTattooOrPiercing}
-          onChange={(e) => dispatch(setHasTattooOrPiercing(e.target.value))}
-        >
-          <Box>
-            <FormControlLabel
-              value="yes"
-              control={<Radio />}
-              label={t("yes")}
-            />
-            <FormControlLabel value="no" control={<Radio />} label={t("no")} />
-          </Box>
-        </RadioGroup>
-      </FormControl>
     </>
   )
 }

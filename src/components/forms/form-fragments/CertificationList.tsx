@@ -70,6 +70,7 @@ const CertificationList = () => {
           onChange={(e) =>
             setCertification({ ...certification, startDate: e.target.value })
           }
+          slotProps={{ inputLabel: { shrink: true } }}
           error={errors.startDate}
           helperText={errors.startDate ? t("requiredField") : ""}
         />
@@ -79,6 +80,7 @@ const CertificationList = () => {
           fullWidth
           label={t("endDate")}
           type="date"
+          slotProps={{ inputLabel: { shrink: true } }}
           value={certification.endDate}
           onChange={(e) =>
             setCertification({ ...certification, endDate: e.target.value })

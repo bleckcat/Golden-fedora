@@ -1,24 +1,15 @@
 interface PersonalInformationType {
-  picture: string | null;
-
-  fullName: string;
-
-  dateOfBirth: string;
-
-  sex: string;
-
-  height: number;
-
-  weight: number;
-
-  hasHealthProblems: string;
-
-  healthProblems: string[];
-
-  newHealthProblem: string;
-
-  hasTattooOrPiercing: string;
-
-  manequimSize: string;
+  picture: string | null
+  fullName: string
+  dateOfBirth: string
+  sex: string
+  height: number
+  weight: number
+  hasHealthProblems: boolean
+  healthProblems: string[]
+  newHealthProblem: string
+  hasTattooOrPiercing: boolean
+  manequimSize: string
 }
-export default PersonalInformationType;
+
+export default PersonalInformationType

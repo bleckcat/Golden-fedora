@@ -76,6 +76,7 @@ const WorkList = () => {
           fullWidth
           label={t("startDate")}
           type="date"
+          slotProps={{ inputLabel: { shrink: true } }}
           value={work.startDate}
           onChange={(e) => setWork({ ...work, startDate: e.target.value })}
           error={errors.startDate}
@@ -87,6 +88,7 @@ const WorkList = () => {
           fullWidth
           label={t("endDate")}
           type="date"
+          slotProps={{ inputLabel: { shrink: true } }}
           value={work.endDate}
           onChange={(e) => setWork({ ...work, endDate: e.target.value })}
           error={errors.endDate}

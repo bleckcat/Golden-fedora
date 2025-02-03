@@ -78,6 +78,7 @@ const ProjectList = () => {
           label={t("startDate")}
           type="date"
           value={project.startDate}
+          slotProps={{ inputLabel: { shrink: true } }}
           onChange={(e) =>
             setProject({ ...project, startDate: e.target.value })
           }
@@ -91,6 +92,7 @@ const ProjectList = () => {
           fullWidth
           type="date"
           value={project.endDate}
+          slotProps={{ inputLabel: { shrink: true } }}
           onChange={(e) => setProject({ ...project, endDate: e.target.value })}
           error={errors.endDate}
           helperText={errors.endDate ? t("requiredField") : ""}

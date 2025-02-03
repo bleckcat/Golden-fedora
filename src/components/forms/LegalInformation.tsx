@@ -24,10 +24,10 @@ const LegalInformationForm = () => {
   })
 
   useEffect(() => {
-    const isValid =
-      maritalStatus &&
+    const isValid = (maritalStatus &&
       childrenCount &&
-      (maritalStatus !== "married" || (spouseName && spouseBirthDate))
+      (maritalStatus !== "married" ||
+        (spouseName && spouseBirthDate))) as boolean
     dispatch(enableStepperNextButton(isValid))
   }, [maritalStatus, childrenCount, spouseName, spouseBirthDate, dispatch])
 
@@ -109,7 +109,7 @@ const LegalInformationForm = () => {
               label={t("spouseBirthDate")}
               name="spouseBirthDate"
               type="date"
-              InputLabelProps={{ shrink: true }}
+              slotProps={{ inputLabel: { shrink: true } }}
               value={spouseBirthDate}
               onChange={(e) => handleChange("spouseBirthDate", e.target.value)}
               error={errors.spouseBirthDate}
