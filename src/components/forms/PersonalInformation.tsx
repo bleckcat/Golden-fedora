@@ -1,38 +1,13 @@
 import { useTranslation } from "react-i18next"
-import TextField from "@mui/material/TextField"
-import Radio from "@mui/material/Radio"
-import RadioGroup from "@mui/material/RadioGroup"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import FormControl from "@mui/material/FormControl"
-import FormLabel from "@mui/material/FormLabel"
 import Button from "@mui/material/Button"
-import MenuItem from "@mui/material/MenuItem"
-import {
-  Box,
-  Grid2,
-  List,
-  ListItem,
-  ListItemText,
-  IconButton,
-  Card,
-} from "@mui/material"
-import { CloudUpload, Delete } from "@mui/icons-material"
+import { Box, Grid2, Card, Alert } from "@mui/material"
+import { CloudUpload } from "@mui/icons-material"
 import VisuallyHiddenInput from "../../styled/VisuallyHiddenInput"
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux"
-import {
-  setPicture,
-  setFullName,
-  setDateOfBirth,
-  setSex,
-  setHeight,
-  setWeight,
-  setHasHealthProblems,
-  addHealthProblem,
-  removeHealthProblem,
-  setHasTattooOrPiercing,
-  setManequimSize,
-  setNewHealthProblem,
-} from "../../redux/PersonalInformationSlice"
+import { setPicture } from "../../redux/PersonalInformationSlice"
+import PersonalFields from "./form-fragments/PersonalFields"
+import { useEffect, useState } from "react"
+import { enableStepperNextButton } from "../../redux/GlobalSlice"
 
 const PersonalInformation = () => {
   const { t } = useTranslation()
@@ -41,29 +16,60 @@ const PersonalInformation = () => {
     (state) => state.personalInformation
   )
 
+  const [errors, setErrors] = useState({
+    picture: false,
+    fullName: false,
+    dateOfBirth: false,
+    sex: false,
+    height: false,
+    weight: false,
+    manequimSize: false,
+  })
+
+  const [touched, setTouched] = useState({
+    picture: false,
+    fullName: false,
+    dateOfBirth: false,
+    sex: false,
+    height: false,
+    weight: false,
+    manequimSize: false,
+  })
+
+  useEffect(() => {
+    const newErrors = {
+      picture: !personalInformation.picture && touched.picture,
+      fullName: !personalInformation.fullName && touched.fullName,
+      dateOfBirth: !personalInformation.dateOfBirth && touched.dateOfBirth,
+      sex: !personalInformation.sex && touched.sex,
+      height: !personalInformation.height && touched.height,
+      weight: !personalInformation.weight && touched.weight,
+      manequimSize: !personalInformation.manequimSize && touched.manequimSize,
+    }
+    setErrors(newErrors)
+    const isValid = !Object.values(newErrors).some((error) => error)
+    dispatch(enableStepperNextButton(isValid))
+  }, [personalInformation, touched, dispatch])
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files[0]) {
       const file = files[0]
       const imgUrl = URL.createObjectURL(file)
       dispatch(setPicture(imgUrl))
+      setErrors((prevErrors) => ({ ...prevErrors, picture: false }))
+      setTouched((prevTouched) => ({ ...prevTouched, picture: true }))
     }
-  }
-
-  const handleAddHealthProblem = () => {
-    if (personalInformation.newHealthProblem.trim() !== "") {
-      dispatch(addHealthProblem(personalInformation.newHealthProblem))
-      dispatch(setNewHealthProblem(""))
-    }
-  }
-
-  const handleRemoveHealthProblem = (index: number) => {
-    dispatch(removeHealthProblem(index))
   }
 
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={12}>
+        {errors.picture && (
+          <Alert severity="error" sx={{ my: 2 }}>
+            {t("pleaseUploadPhoto")}
+          </Alert>
+        )}
         <Card sx={{ width: 30 * 4, height: 40 * 4, margin: "auto" }}>
           {personalInformation.picture ? (
             <img
@@ -80,9 +86,7 @@ const PersonalInformation = () => {
               alignItems={"center"}
               textAlign={"center"}
               fontWeight={"bold"}
-            >
-              {t("pleaseUploadPhoto")}
-            </Box>
+            />
           )}
         </Card>
         <Box margin="auto" width="fit-content" pt={2}>
@@ -102,157 +106,7 @@ const PersonalInformation = () => {
           </Button>
         </Box>
       </Grid2>
-      <Grid2 size={12}>
-        <TextField
-          fullWidth
-          margin="normal"
-          label={t("fullName")}
-          variant="outlined"
-          value={personalInformation.fullName}
-          onChange={(e) => dispatch(setFullName(e.target.value))}
-        />
-      </Grid2>
-      <Grid2 size={6}>
-        <TextField
-          fullWidth
-          margin="normal"
-          label={t("dateOfBirth")}
-          type="date"
-          InputLabelProps={{ shrink: true }}
-          variant="outlined"
-          value={personalInformation.dateOfBirth}
-          onChange={(e) => dispatch(setDateOfBirth(e.target.value))}
-        />
-      </Grid2>
-
-      <Grid2 size={6}>
-        <TextField
-          select
-          label={t("sex")}
-          fullWidth
-          value={personalInformation.sex}
-          onChange={(e) => dispatch(setSex(e.target.value))}
-          sx={{ my: 2 }}
-        >
-          <MenuItem value="male">{t("male")}</MenuItem>
-          <MenuItem value="female">{t("female")}</MenuItem>
-          <MenuItem value="other">{t("other")}</MenuItem>
-        </TextField>
-      </Grid2>
-      <Grid2 size={4}>
-        <TextField
-          fullWidth
-          margin="normal"
-          label={t("height")}
-          variant="outlined"
-          type="number"
-          value={personalInformation.height}
-          onChange={(e) => dispatch(setHeight(Number(e.target.value)))}
-        />
-      </Grid2>
-      <Grid2 size={4}>
-        <TextField
-          fullWidth
-          margin="normal"
-          label={t("weight")}
-          variant="outlined"
-          type="number"
-          value={personalInformation.weight}
-          onChange={(e) => dispatch(setWeight(Number(e.target.value)))}
-        />
-      </Grid2>
-      <Grid2 size={4}>
-        <TextField
-          select
-          label={t("manequimSize")}
-          fullWidth
-          value={personalInformation.manequimSize}
-          onChange={(e) => dispatch(setManequimSize(e.target.value))}
-          sx={{ my: 2 }}
-        >
-          <MenuItem value="P">P</MenuItem>
-          <MenuItem value="M">M</MenuItem>
-          <MenuItem value="G">G</MenuItem>
-          <MenuItem value="GG">GG</MenuItem>
-          <MenuItem value="XL">XL</MenuItem>
-        </TextField>
-      </Grid2>
-
-      <Grid2 size={6}>
-        <FormControl component="fieldset" margin="normal">
-          <FormLabel component="legend">{t("haveHealthProblems")}</FormLabel>
-          <RadioGroup
-            aria-label="haveHealthProblems"
-            name="haveHealthProblems"
-            value={personalInformation.hasHealthProblems}
-            onChange={(e) => dispatch(setHasHealthProblems(e.target.value))}
-          >
-            <Box>
-              <FormControlLabel
-                value="yes"
-                control={<Radio />}
-                label={t("yes")}
-              />
-              <FormControlLabel
-                value="no"
-                control={<Radio />}
-                label={t("no")}
-              />
-            </Box>
-          </RadioGroup>
-        </FormControl>
-      </Grid2>
-      {personalInformation.hasHealthProblems === "yes" && (
-        <Grid2 size={12}>
-          <TextField
-            fullWidth
-            margin="normal"
-            label={t("addHealthProblem")}
-            variant="outlined"
-            value={personalInformation.newHealthProblem}
-            onChange={(e) => dispatch(setNewHealthProblem(e.target.value))}
-          />
-          <Button variant="contained" onClick={handleAddHealthProblem}>
-            {t("addHealthProblem")}
-          </Button>
-          <List>
-            {personalInformation.healthProblems.map((problem, index) => (
-              <ListItem
-                key={index}
-                secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => handleRemoveHealthProblem(index)}
-                  >
-                    <Delete />
-                  </IconButton>
-                }
-              >
-                <ListItemText primary={problem} />
-              </ListItem>
-            ))}
-          </List>
-        </Grid2>
-      )}
-      <FormControl component="fieldset" margin="normal">
-        <FormLabel component="legend">{t("haveTattooOrPiercing")}</FormLabel>
-        <RadioGroup
-          aria-label="haveTattooOrPiercing"
-          name="haveTattooOrPiercing"
-          value={personalInformation.hasTattooOrPiercing}
-          onChange={(e) => dispatch(setHasTattooOrPiercing(e.target.value))}
-        >
-          <Box>
-            <FormControlLabel
-              value="yes"
-              control={<Radio />}
-              label={t("yes")}
-            />
-            <FormControlLabel value="no" control={<Radio />} label={t("no")} />
-          </Box>
-        </RadioGroup>
-      </FormControl>
+      <PersonalFields />
     </Grid2>
   )
 }

@@ -24,10 +24,27 @@ const StudyList = () => {
     endDate: "",
     universityName: "",
   })
+  const [errors, setErrors] = useState({
+    startDate: false,
+    endDate: false,
+    universityName: false,
+  })
 
   const handleAddStudy = () => {
+    const newErrors = {
+      startDate: !study.startDate,
+      endDate: !study.endDate,
+      universityName: !study.universityName,
+    }
+    setErrors(newErrors)
+
+    if (Object.values(newErrors).some((error) => error)) {
+      return
+    }
+
     dispatch(addStudyHistory(study))
     setStudy({ startDate: "", endDate: "", universityName: "" })
+    setErrors({ startDate: false, endDate: false, universityName: false })
   }
 
   const handleRemoveStudy = (index: number) => {
@@ -46,6 +63,8 @@ const StudyList = () => {
           type="date"
           value={study.startDate}
           onChange={(e) => setStudy({ ...study, startDate: e.target.value })}
+          error={errors.startDate}
+          helperText={errors.startDate ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={4}>
@@ -55,6 +74,8 @@ const StudyList = () => {
           type="date"
           value={study.endDate}
           onChange={(e) => setStudy({ ...study, endDate: e.target.value })}
+          error={errors.endDate}
+          helperText={errors.endDate ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={4}>
@@ -65,6 +86,8 @@ const StudyList = () => {
           onChange={(e) =>
             setStudy({ ...study, universityName: e.target.value })
           }
+          error={errors.universityName}
+          helperText={errors.universityName ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={12}>

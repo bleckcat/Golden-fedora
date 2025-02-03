@@ -13,7 +13,10 @@ import { useState } from "react"
 import useFormatDate from "../../../hooks/useFormatDate"
 import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux"
 import { useTranslation } from "react-i18next"
-import { addCertification, removeCertification } from "../../../redux/EducationWorkSlice"
+import {
+  addCertification,
+  removeCertification,
+} from "../../../redux/EducationWorkSlice"
 
 const CertificationList = () => {
   const { t } = useTranslation()
@@ -26,9 +29,27 @@ const CertificationList = () => {
     certificationName: "",
   })
 
+  const [errors, setErrors] = useState({
+    startDate: false,
+    endDate: false,
+    certificationName: false,
+  })
+
   const handleAddCertification = () => {
+    const newErrors = {
+      startDate: !certification.startDate,
+      endDate: !certification.endDate,
+      certificationName: !certification.certificationName,
+    }
+    setErrors(newErrors)
+
+    if (Object.values(newErrors).some((error) => error)) {
+      return
+    }
+
     dispatch(addCertification(certification))
     setCertification({ startDate: "", endDate: "", certificationName: "" })
+    setErrors({ startDate: false, endDate: false, certificationName: false })
   }
 
   const handleRemoveCertification = (index: number) => {
@@ -49,6 +70,8 @@ const CertificationList = () => {
           onChange={(e) =>
             setCertification({ ...certification, startDate: e.target.value })
           }
+          error={errors.startDate}
+          helperText={errors.startDate ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={4}>
@@ -60,6 +83,8 @@ const CertificationList = () => {
           onChange={(e) =>
             setCertification({ ...certification, endDate: e.target.value })
           }
+          error={errors.endDate}
+          helperText={errors.endDate ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={4}>
@@ -73,6 +98,8 @@ const CertificationList = () => {
               certificationName: e.target.value,
             })
           }
+          error={errors.certificationName}
+          helperText={errors.certificationName ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={12}>

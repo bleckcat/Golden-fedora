@@ -26,13 +26,39 @@ const WorkList = () => {
     companyName: "",
     responsibilities: "",
   })
+
+  const [errors, setErrors] = useState({
+    startDate: false,
+    endDate: false,
+    companyName: false,
+    responsibilities: false,
+  })
+
   const handleAddWork = () => {
+    const newErrors = {
+      startDate: !work.startDate,
+      endDate: !work.endDate,
+      companyName: !work.companyName,
+      responsibilities: !work.responsibilities,
+    }
+    setErrors(newErrors)
+
+    if (Object.values(newErrors).some((error) => error)) {
+      return
+    }
+
     dispatch(addWorkHistory(work))
     setWork({
       startDate: "",
       endDate: "",
       companyName: "",
       responsibilities: "",
+    })
+    setErrors({
+      startDate: false,
+      endDate: false,
+      companyName: false,
+      responsibilities: false,
     })
   }
 
@@ -52,6 +78,8 @@ const WorkList = () => {
           type="date"
           value={work.startDate}
           onChange={(e) => setWork({ ...work, startDate: e.target.value })}
+          error={errors.startDate}
+          helperText={errors.startDate ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={4}>
@@ -61,6 +89,8 @@ const WorkList = () => {
           type="date"
           value={work.endDate}
           onChange={(e) => setWork({ ...work, endDate: e.target.value })}
+          error={errors.endDate}
+          helperText={errors.endDate ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={4}>
@@ -69,6 +99,8 @@ const WorkList = () => {
           label={t("companyName")}
           value={work.companyName}
           onChange={(e) => setWork({ ...work, companyName: e.target.value })}
+          error={errors.companyName}
+          helperText={errors.companyName ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={12}>
@@ -79,6 +111,8 @@ const WorkList = () => {
           onChange={(e) =>
             setWork({ ...work, responsibilities: e.target.value })
           }
+          error={errors.responsibilities}
+          helperText={errors.responsibilities ? t("requiredField") : ""}
         />
       </Grid2>
       <Grid2 size={12}>

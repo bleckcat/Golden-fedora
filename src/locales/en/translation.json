@@ -58,5 +58,7 @@
   "female": "Female",
   "other": "Other",
   "pleaseUploadPhoto": "Please, Upload a 3x4 photo",
-  "readWithAttentionAlert": "これはデモですので、どこでもクリックしてください。いくつかのボタンはまだ機能していないか、進行中かもしれません。とにかく、サイトを楽しんでください。ありがとうございます。"
+  "readWithAttentionAlert": "This is a demo, so please click anywhere. Some buttons may not work yet or are still in progress. Anyway, enjoy the site. Thank you.",
+  "requiredField": "This field is required",
+  "youNeedToAddEntries": "You need to add at least one entry in both Study and Work lists."
 }

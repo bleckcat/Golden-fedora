@@ -1,84 +1,83 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { useAppSelector } from "../hooks/useRedux";
-import { useTranslation } from "react-i18next";
+import * as React from "react"
+import Box from "@mui/material/Box"
+import Stepper from "@mui/material/Stepper"
+import Step from "@mui/material/Step"
+import StepLabel from "@mui/material/StepLabel"
+import Button from "@mui/material/Button"
+import Typography from "@mui/material/Typography"
+import { useAppSelector } from "../hooks/useRedux"
+import { useTranslation } from "react-i18next"
 
 type Steps = {
-  stepComponent: React.ReactElement<any, any>;
-  label: string;
-  optional?: boolean;
-};
+  stepComponent: React.ReactElement<any, any>
+  label: string
+  optional?: boolean
+}
 
 const LinearStepper = (props: { steps: Steps[] }) => {
-  const { steps } = props;
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
-  const { t } = useTranslation();
-
-  const { enableNextButton } = useAppSelector((state) => state.global);
+  const { steps } = props
+  const [activeStep, setActiveStep] = React.useState(0)
+  const [skipped, setSkipped] = React.useState(new Set<number>())
+  const { t } = useTranslation()
+  const { enableNextButton } = useAppSelector((state) => state.global)
 
   const isStepSkipped = (step: number) => {
-    return skipped.has(step);
-  };
+    return skipped.has(step)
+  }
 
   const handleNext = () => {
-    let newSkipped = skipped;
+    let newSkipped = skipped
     if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+      newSkipped = new Set(newSkipped.values())
+      newSkipped.delete(activeStep)
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    setSkipped(newSkipped)
+  }
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+    setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  }
 
   const handleSkip = () => {
     if (!steps[activeStep].optional) {
-      throw new Error("You can't skip a step that isn't optional.");
+      throw new Error("You can't skip a step that isn't optional.")
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
     setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
+      const newSkipped = new Set(prevSkipped.values())
+      newSkipped.add(activeStep)
+      return newSkipped
+    })
+  }
 
   const handleReset = () => {
-    setActiveStep(0);
-  };
+    setActiveStep(0)
+  }
 
   return (
     <Box sx={{ maxWidth: "1080px", margin: "auto" }}>
       <Stepper activeStep={activeStep} sx={{ paddingBottom: "32px" }}>
         {steps.map((step, index) => {
-          const stepProps: { completed?: boolean } = {};
+          const stepProps: { completed?: boolean } = {}
           const labelProps: {
-            optional?: React.ReactNode;
-          } = {};
+            optional?: React.ReactNode
+          } = {}
           if (step.optional) {
             labelProps.optional = (
               <Typography variant="caption">{t("optional")}</Typography>
-            );
+            )
           }
           if (isStepSkipped(index)) {
-            stepProps.completed = false;
+            stepProps.completed = false
           }
           return (
             <Step key={step.label} {...stepProps}>
               <StepLabel {...labelProps}>{step.label}</StepLabel>
             </Step>
-          );
+          )
         })}
       </Stepper>
       {activeStep === steps.length ? (
@@ -120,7 +119,7 @@ const LinearStepper = (props: { steps: Steps[] }) => {
         </>
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default LinearStepper;
+export default LinearStepper
