@@ -57,5 +57,6 @@
   "male": "Male",
   "female": "Female",
   "other": "Other",
-  "pleaseUploadPhoto": "Please, Upload a 3x4 photo"
+  "pleaseUploadPhoto": "Please, Upload a 3x4 photo",
+  "readWithAttentionAlert": "これはデモですので、どこでもクリックしてください。いくつかのボタンはまだ機能していないか、進行中かもしれません。とにかく、サイトを楽しんでください。ありがとうございます。"
 }

@@ -1,7 +1,7 @@
-import SelectCvType from "../components/forms/SelectCvType"
 import LinearStepper from "../components/Stepper"
 import JobTypeForm from "../components/forms/JobTypeForm"
 import { useTranslation } from "react-i18next"
+import ReadWithAttention from "../components/forms/ReadWithAttention"
 import PersonalInformation from "../components/forms/PersonalInformation"
 import LegalInformation from "../components/forms/LegalInformation"
 import EducationWork from "../components/forms/EducationWork"
@@ -18,7 +18,7 @@ const CreateCv = () => {
             steps={[
               {
                 label: t("readWithAttention"),
-                stepComponent: <SelectCvType />,
+                stepComponent: <ReadWithAttention />,
               },
               { label: t("jobType"), stepComponent: <JobTypeForm /> },
               {
