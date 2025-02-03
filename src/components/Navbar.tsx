@@ -45,7 +45,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" sx={{ maxHeight: "64px" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <DesignServices sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
