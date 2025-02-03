@@ -13,6 +13,7 @@
   "next": "Next",
   "finish": "Finish",
   "personalInformation": "Personal Information",
+  "legalInformation": "Legal Information",
   "uploadPicture": "3x4 picture",
   "fullName": "Full Name",
   "dateOfBirth": "Date of Birth",
@@ -52,5 +53,8 @@
   "certifications": "Certifications",
   "workHistory": "Work History",
   "projects": "Projects",
-  "certificationName": "Certification Name"
+  "certificationName": "Certification Name",
+  "male": "Male",
+  "female": "Female",
+  "other": "Other"
 }

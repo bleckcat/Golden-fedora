@@ -13,6 +13,7 @@
   "next": "次へ",
   "finish": "終了",
   "personalInformation": "個人情報",
+  "legalInformation": "法的情報",
   "uploadPicture": "3x4 写真",
   "fullName": "フルネーム",
   "dateOfBirth": "生年月日",
@@ -52,5 +53,8 @@
   "certifications": "認定",
   "workHistory": "職歴",
   "projects": "プロジェクト",
-  "certificationName": "認定名"
+  "certificationName": "認定名",
+  "male": "男性",
+  "female": "女性",
+  "other": "その他"
 }

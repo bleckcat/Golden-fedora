@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
-import TextField from "@mui/material/TextField";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
+import { useTranslation } from "react-i18next"
+import TextField from "@mui/material/TextField"
+import Radio from "@mui/material/Radio"
+import RadioGroup from "@mui/material/RadioGroup"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import FormControl from "@mui/material/FormControl"
+import FormLabel from "@mui/material/FormLabel"
+import Button from "@mui/material/Button"
+import MenuItem from "@mui/material/MenuItem"
 import {
   Box,
   Grid2,
@@ -14,10 +14,10 @@ import {
   ListItem,
   ListItemText,
   IconButton,
-} from "@mui/material";
-import { CloudUpload, Delete } from "@mui/icons-material";
-import VisuallyHiddenInput from "../../styled/VisuallyHiddenInput";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+} from "@mui/material"
+import { CloudUpload, Delete } from "@mui/icons-material"
+import VisuallyHiddenInput from "../../styled/VisuallyHiddenInput"
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux"
 import {
   setPicture,
   setFullName,
@@ -31,34 +31,34 @@ import {
   setHasTattooOrPiercing,
   setManequimSize,
   setNewHealthProblem,
-} from "../../redux/PersonalInformationSlice";
+} from "../../redux/PersonalInformationSlice"
 
 const PersonalInformation = () => {
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
+  const { t } = useTranslation()
+  const dispatch = useAppDispatch()
   const personalInformation = useAppSelector(
     (state) => state.personalInformation
-  );
+  )
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
+    const files = event.target.files
     if (files && files[0]) {
-      const file = files[0];
-      const imgUrl = URL.createObjectURL(file);
-      dispatch(setPicture(imgUrl));
+      const file = files[0]
+      const imgUrl = URL.createObjectURL(file)
+      dispatch(setPicture(imgUrl))
     }
-  };
+  }
 
   const handleAddHealthProblem = () => {
     if (personalInformation.newHealthProblem.trim() !== "") {
-      dispatch(addHealthProblem(personalInformation.newHealthProblem));
-      dispatch(setNewHealthProblem(""));
+      dispatch(addHealthProblem(personalInformation.newHealthProblem))
+      dispatch(setNewHealthProblem(""))
     }
-  };
+  }
 
   const handleRemoveHealthProblem = (index: number) => {
-    dispatch(removeHealthProblem(index));
-  };
+    dispatch(removeHealthProblem(index))
+  }
 
   return (
     <Grid2 container spacing={2}>
@@ -120,9 +120,9 @@ const PersonalInformation = () => {
           onChange={(e) => dispatch(setSex(e.target.value))}
           sx={{ my: 2 }}
         >
-          <MenuItem value="male">Male</MenuItem>
-          <MenuItem value="female">Female</MenuItem>
-          <MenuItem value="other">Other</MenuItem>
+          <MenuItem value="male">{t("male")}</MenuItem>
+          <MenuItem value="female">{t("female")}</MenuItem>
+          <MenuItem value="other">{t("other")}</MenuItem>
         </TextField>
       </Grid2>
       <Grid2 size={4}>
@@ -240,7 +240,7 @@ const PersonalInformation = () => {
         </RadioGroup>
       </FormControl>
     </Grid2>
-  );
-};
+  )
+}
 
-export default PersonalInformation;
+export default PersonalInformation
