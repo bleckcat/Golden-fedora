@@ -56,5 +56,6 @@
   "certificationName": "Nome da Certificação",
   "male": "Masculino",
   "female": "Feminino",
-  "other": "Outro"
+  "other": "Outro",
+  "pleaseUploadPhoto": "Por favor, faça upload de uma foto 3x4"
 }

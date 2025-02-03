@@ -6,6 +6,11 @@
   font-style: normal;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 body,
 html {
   padding: 0;

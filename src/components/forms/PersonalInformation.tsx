@@ -14,6 +14,7 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Card,
 } from "@mui/material"
 import { CloudUpload, Delete } from "@mui/icons-material"
 import VisuallyHiddenInput from "../../styled/VisuallyHiddenInput"
@@ -63,14 +64,27 @@ const PersonalInformation = () => {
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={12}>
-        <Box width={30 * 4} height={40 * 4} margin="auto" bgcolor={"Highlight"}>
-          <img
-            src={personalInformation.picture ?? ""}
-            alt="3x4 picture uploaded by the user"
-            width={30 * 4}
-            height={40 * 4}
-          />
-        </Box>
+        <Card sx={{ width: 30 * 4, height: 40 * 4, margin: "auto" }}>
+          {personalInformation.picture ? (
+            <img
+              src={personalInformation.picture}
+              alt="3x4 picture uploaded by the user"
+              width={30 * 4}
+              height={40 * 4}
+            />
+          ) : (
+            <Box
+              sx={{ bgcolor: "primary.main", height: "100%" }}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              textAlign={"center"}
+              fontWeight={"bold"}
+            >
+              {t("pleaseUploadPhoto")}
+            </Box>
+          )}
+        </Card>
         <Box margin="auto" width="fit-content" pt={2}>
           <Button
             component="label"

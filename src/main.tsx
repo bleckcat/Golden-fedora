@@ -8,6 +8,7 @@ import "./i18n"
 import Navbar from "./components/Navbar.tsx"
 import { ThemeProvider } from "@emotion/react"
 import mainTheme from "./theme/main.ts"
+import CreateCv from "./pages/CreateCv.tsx"
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={setupStore()}>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/create-cv" element={<CreateCv />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
