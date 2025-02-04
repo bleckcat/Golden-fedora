@@ -10,6 +10,7 @@ import {
   DegradeBackgroundOverlay,
   ManuelCosentinoBackground,
 } from "../styled/BackgroundContainers"
+import FinishCvForm from "../components/forms/FinishCvForm"
 
 const CreateCv = () => {
   const { t } = useTranslation()
@@ -23,7 +24,7 @@ const CreateCv = () => {
               steps={[
                 {
                   label: t("readWithAttention"),
-                  stepComponent: <ReadWithAttention />,
+                  stepComponent: <FinishCvForm />,
                 },
                 { label: t("jobType"), stepComponent: <JobTypeForm /> },
                 {
@@ -35,6 +36,7 @@ const CreateCv = () => {
                   stepComponent: <LegalInformation />,
                 },
                 { label: t("educationWork"), stepComponent: <EducationWork /> },
+                { label: "CU", stepComponent: <FinishCvForm /> },
               ]}
             />
           </Box>

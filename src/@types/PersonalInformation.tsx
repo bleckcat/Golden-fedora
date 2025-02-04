@@ -3,6 +3,9 @@ interface PersonalInformationType {
   fullName: string
   dateOfBirth: string
   sex: string
+  phoneNumber: string,
+  email: string,
+  address: string,
   height: number
   weight: number
   hasHealthProblems: boolean

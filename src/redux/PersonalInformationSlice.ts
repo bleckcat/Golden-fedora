@@ -6,8 +6,11 @@ const initialState: PersonalInformationType & {
 } = {
   picture: null,
   fullName: "",
+  phoneNumber: "",
   dateOfBirth: "",
   sex: "",
+  email: "",
+  address: "",
   height: 0,
   weight: 0,
   hasHealthProblems: false,
