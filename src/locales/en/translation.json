@@ -16,6 +16,9 @@
   "legalInformation": "Legal Information",
   "uploadPicture": "3x4 picture",
   "fullName": "Full Name",
+  "address": "Address",
+  "email": "Email",
+  "phoneNumber": "Phone Number",
   "dateOfBirth": "Date of Birth",
   "sex": "Sex",
   "height": "Height (cm)",
@@ -60,5 +63,15 @@
   "pleaseUploadPhoto": "Please, Upload a 3x4 photo",
   "readWithAttentionAlert": "This is a demo, so please click anywhere. Some buttons may not work yet or are still in progress. Anyway, enjoy the site. Thank you.",
   "requiredField": "This field is required",
-  "youNeedToAddEntries": "You need to add at least one entry in both Study and Work lists."
+  "youNeedToAddEntries": "You need to add at least one entry in both Study and Work lists.",
+  "downloadCvInJapanese": "Download CV in Japanese",
+  "downloadCvInPortuguese": "Download CV in Portuguese",
+  "home": "Home",
+  "createCv": "Create CV",
+  "contactUs": "Contact Us",
+  "profile": "Profile",
+  "account": "Account",
+  "dashboard": "Dashboard",
+  "logout": "Logout",
+  "downloadYourCv": "Download your CV"
 }

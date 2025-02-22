@@ -16,6 +16,9 @@
   "legalInformation": "Informações Legais",
   "uploadPicture": "Foto 3x4",
   "fullName": "Nome Completo",
+  "address": "Endereço",
+  "email": "Email",
+  "phoneNumber": "Número de Telefone",
   "dateOfBirth": "Data de Nascimento",
   "sex": "Sexo",
   "height": "Altura (cm)",
@@ -60,5 +63,15 @@
   "pleaseUploadPhoto": "Por favor, faça upload de uma foto 3x4",
   "readWithAttentionAlert": "Isto é apenas uma demonstração, sinta-se à vontade para clicar onde quiser, talvez alguns botões ainda não funcionem ou estejam em progresso, de qualquer forma, aproveite o site, obrigado.",
   "requiredField": "Este campo é obrigatório",
-  "youNeedToAddEntries": "Você precisa adicionar pelo menos uma entrada nas listas de Estudo e Trabalho."
+  "youNeedToAddEntries": "Você precisa adicionar pelo menos uma entrada nas listas de Estudo e Trabalho.",
+  "downloadCvInJapanese": "Baixar CV em Japonês",
+  "downloadCvInPortuguese": "Baixar CV em Português",
+  "home": "Início",
+  "createCv": "Criar CV",
+  "contactUs": "Contate-Nos",
+  "profile": "Perfil",
+  "account": "Conta",
+  "dashboard": "Painel de Controle",
+  "logout": "Sair",
+  "downloadYourCv": "Baixe seu CV"
 }

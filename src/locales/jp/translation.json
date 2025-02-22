@@ -16,6 +16,9 @@
   "legalInformation": "法的情報",
   "uploadPicture": "3x4 写真",
   "fullName": "フルネーム",
+  "address": "住所",
+  "email": "メール",
+  "phoneNumber": "電話番号",
   "dateOfBirth": "生年月日",
   "sex": "性別",
   "height": "身長 (cm)",
@@ -60,5 +63,15 @@
   "pleaseUploadPhoto": "3x4の写真をアップロードしてください",
   "readWithAttentionAlert": "これはデモですので、どこでもクリックしてください。いくつかのボタンはまだ機能していないか、進行中かもしれません。とにかく、サイトを楽しんでください。ありがとうございます。",
   "requiredField": "このフィールドは必須です",
-  "youNeedToAddEntries": "学習リストと作業リストの両方に少なくとも1つのエントリを追加する必要があります。"
+  "youNeedToAddEntries": "学習リストと作業リストの両方に少なくとも1つのエントリを追加する必要があります。",
+  "downloadCvInJapanese": "日本語で履歴書をダウンロード",
+  "downloadCvInPortuguese": "ポルトガル語で履歴書をダウンロード",
+  "home": "ホーム",
+  "createCv": "履歴書を作成",
+  "contactUs": "お問い合わせ",
+  "profile": "プロフィール",
+  "account": "アカウント",
+  "dashboard": "ダッシュボード",
+  "logout": "ログアウト",
+  "downloadYourCv": "履歴書をダウンロード"
 }

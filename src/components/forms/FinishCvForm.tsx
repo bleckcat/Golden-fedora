@@ -1,8 +1,11 @@
 import Button from "@mui/material/Button"
 import axios from "axios"
 import { useAppSelector } from "../../hooks/useRedux"
+import { Box } from "@mui/material"
+import { useTranslation } from "react-i18next"
 
 const FinishCvForm = () => {
+  const { t } = useTranslation()
   const personalInformation = useAppSelector(
     (state) => state.personalInformation
   )
@@ -20,10 +23,12 @@ const FinishCvForm = () => {
         language,
       }
 
-      const response = await axios.get(
-        `http://localhost:3000/cv/create-${language}-cv`,
+      const response = await axios.post(
+        `http://localhost:3000/create-cv`,
         {
-          params,
+          ...params,
+        },
+        {
           responseType: "blob",
         }
       )
@@ -41,22 +46,22 @@ const FinishCvForm = () => {
   }
 
   return (
-    <div>
+    <Box display="flex" justifyContent="space-around" padding={4}>
       <Button
         variant="contained"
         color="primary"
         onClick={() => handleDownload("jp")}
       >
-        Download CV in Japanese
+        {t("downloadCvInJapanese")}
       </Button>
       <Button
         variant="contained"
         color="secondary"
         onClick={() => handleDownload("pt")}
       >
-        Download CV in Portuguese
+        {t("downloadCvInPortuguese")}
       </Button>
-    </div>
+    </Box>
   )
 }
 

@@ -24,7 +24,7 @@ const CreateCv = () => {
               steps={[
                 {
                   label: t("readWithAttention"),
-                  stepComponent: <FinishCvForm />,
+                  stepComponent: <ReadWithAttention />,
                 },
                 { label: t("jobType"), stepComponent: <JobTypeForm /> },
                 {
@@ -36,7 +36,7 @@ const CreateCv = () => {
                   stepComponent: <LegalInformation />,
                 },
                 { label: t("educationWork"), stepComponent: <EducationWork /> },
-                { label: "CU", stepComponent: <FinishCvForm /> },
+                { label: t("downloadYourCv"), stepComponent: <FinishCvForm /> },
               ]}
             />
           </Box>

@@ -14,15 +14,17 @@ import MenuItem from "@mui/material/MenuItem"
 import { DesignServices } from "@mui/icons-material"
 import { Link } from "react-router"
 import LanguageSwitcher from "./LanguageSwitcher"
+import { useTranslation } from "react-i18next"
 
 const pages = [
-  { label: "Home", href: "/" },
-  { label: "Create CV", href: "/create-cv" },
-  { label: "Contact US", href: "/contact-us" },
+  { label: "home", href: "/" },
+  { label: "createCv", href: "/create-cv" },
+  { label: "contactUs", href: "/contact-us" },
 ]
-const settings = ["Profile", "Account", "Dashboard", "Logout"]
+const settings = ["profile", "account", "dashboard", "logout"]
 
 function ResponsiveAppBar() {
+  const { t } = useTranslation()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -97,7 +99,7 @@ function ResponsiveAppBar() {
                 <Link to={page.href} key={page.label}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography sx={{ textAlign: "center" }}>
-                      {page.label}
+                      {t(page.label)}
                     </Typography>
                   </MenuItem>
                 </Link>
@@ -130,7 +132,7 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page.label}
+                  {t(page.label)}
                 </Button>
               </Link>
             ))}
@@ -163,7 +165,7 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {setting}
+                    {t(setting)}
                   </Typography>
                 </MenuItem>
               ))}

@@ -119,6 +119,51 @@ const PersonalFields = () => {
       <Grid2 size={6}>
         <TextField
           fullWidth
+          label={t("address")}
+          name="address"
+          required
+          variant="outlined"
+          value={personalInformation.address}
+          onChange={handleChange}
+          error={!!personalInformation.errors.address}
+          helperText={
+            personalInformation.errors.address ? t("requiredField") : ""
+          }
+        />
+      </Grid2>
+      <Grid2 size={6}>
+        <TextField
+          fullWidth
+          label={t("email")}
+          name="email"
+          required
+          variant="outlined"
+          value={personalInformation.email}
+          onChange={handleChange}
+          error={!!personalInformation.errors.email}
+          helperText={
+            personalInformation.errors.email ? t("requiredField") : ""
+          }
+        />
+      </Grid2>
+      <Grid2 size={6}>
+        <TextField
+          fullWidth
+          label={t("phoneNumber")}
+          name="phoneNumber"
+          required
+          variant="outlined"
+          value={personalInformation.phoneNumber}
+          onChange={handleChange}
+          error={!!personalInformation.errors.phoneNumber}
+          helperText={
+            personalInformation.errors.phoneNumber ? t("requiredField") : ""
+          }
+        />
+      </Grid2>
+      <Grid2 size={6}>
+        <TextField
+          fullWidth
           name="dateOfBirth"
           label={t("dateOfBirth")}
           type="date"
